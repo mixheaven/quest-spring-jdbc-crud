@@ -15,13 +15,10 @@ public class WizardRepository implements CrudDao<Wizard> {
     @Override
     public Wizard save(Wizard wizard) {
         try {
-            Connection connection = DriverManager.getConnection(
-                    DB_URL, DB_USER, DB_PASSWORD
-            );
+            Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
             PreparedStatement statement = connection.prepareStatement(
                     "INSERT INTO wizard (first_name, last_name, birthday, birth_place, biography, is_muggle) VALUES (?, ?, ?, ?, ?, ?)",
-                    Statement.RETURN_GENERATED_KEYS
-            );
+                    Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, wizard.getFirstName());
             statement.setString(2, wizard.getLastName());
             statement.setDate(3, wizard.getBirthday());
@@ -52,12 +49,8 @@ public class WizardRepository implements CrudDao<Wizard> {
     public Wizard findById(Long id) {
 
         try {
-            Connection connection = DriverManager.getConnection(
-                    DB_URL, DB_USER, DB_PASSWORD
-            );
-            PreparedStatement statement = connection.prepareStatement(
-                    "SELECT * FROM wizard WHERE id = ?;"
-            );
+            Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM wizard WHERE id = ?;");
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
 
@@ -80,12 +73,8 @@ public class WizardRepository implements CrudDao<Wizard> {
     public List<Wizard> findAll() {
 
         try {
-            Connection connection = DriverManager.getConnection(
-                    DB_URL, DB_USER, DB_PASSWORD
-            );
-            PreparedStatement statement = connection.prepareStatement(
-                    "SELECT * FROM wizard;"
-            );
+            Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM wizard;");
             ResultSet resultSet = statement.executeQuery();
 
             List<Wizard> wizards = new ArrayList<>();
@@ -110,12 +99,9 @@ public class WizardRepository implements CrudDao<Wizard> {
     @Override
     public Wizard update(Wizard wizard) {
         try {
-            Connection connection = DriverManager.getConnection(
-                    DB_URL, DB_USER, DB_PASSWORD
-            );
+            Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
             PreparedStatement statement = connection.prepareStatement(
-                    "UPDATE wizard SET first_name=?, last_name=?, birthday=?, birth_place=?, biography=?, is_muggle=? WHERE id=?"
-            );
+                    "UPDATE wizard SET first_name=?, last_name=?, birthday=?, birth_place=?, biography=?, is_muggle=? WHERE id=?");
             statement.setString(1, wizard.getFirstName());
             statement.setString(2, wizard.getLastName());
             statement.setDate(3, wizard.getBirthday());
@@ -137,12 +123,8 @@ public class WizardRepository implements CrudDao<Wizard> {
     @Override
     public void deleteById(Long id) {
         try {
-            Connection connection = DriverManager.getConnection(
-                    DB_URL, DB_USER, DB_PASSWORD
-            );
-            PreparedStatement statement = connection.prepareStatement(
-                    "DELETE FROM wizard WHERE id=?"
-            );
+            Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM wizard WHERE id=?");
             statement.setLong(1, id);
 
             if (statement.executeUpdate() != 1) {
